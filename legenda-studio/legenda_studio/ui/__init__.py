@@ -1,0 +1,1 @@
+"""Widgets da interface do Legenda Studio."""
