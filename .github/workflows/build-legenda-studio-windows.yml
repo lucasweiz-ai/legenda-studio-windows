@@ -34,7 +34,7 @@ jobs:
         run: python -m unittest discover -s tests -v
 
       - name: Teste ponta a ponta de corte e exportação
-       run: python -m scripts.e2e_smoke
+        run: python -m scripts.e2e_smoke
 
       - name: Montar aplicativo portátil
         run: |
