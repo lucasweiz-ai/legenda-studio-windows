@@ -2,17 +2,11 @@ name: Build Windows portátil - Legenda Studio
 
 on:
   workflow_dispatch:
-  push:
-    tags:
-      - "legenda-studio-v*"
-
-defaults:
-  run:
-    working-directory: legenda-studio
 
 jobs:
   build:
     runs-on: windows-latest
+    
     steps:
       - name: Baixar código
         uses: actions/checkout@v4
@@ -20,31 +14,34 @@ jobs:
       - name: Configurar Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: '3.11'
 
       - name: Instalar dependências
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-
-      - name: Incluir FFmpeg e fonte
-        run: python scripts/fetch_runtime.py
+          pip install pyinstaller
 
       - name: Testes do núcleo
-        run: python -m unittest discover -s tests -v
+        run: python -m scripts.core_tests
 
       - name: Teste ponta a ponta de corte e exportação
         run: python -m scripts.e2e_smoke
 
       - name: Montar aplicativo portátil
-        run:
+        run: |
           pyinstaller --noconfirm --clean --onedir --windowed `
             --name LegendaStudio `
             --collect-data faster_whisper `
             --add-data "assets;assets" `
             --add-data "runtime;runtime" `
             app.py
-          Copy-Item LEIA-ME.md dist\LegendaStudio\LEIA-ME.md
+        shell: pwsh
+
+      - name: Copiar LEIA-ME.md para a pasta de distribuição
+        run: |
+          Copy-Item LEIA-ME.md -Destination dist\LegendaStudio\LEIA-ME.md
+        shell: pwsh
 
       - name: Teste de inicialização
         shell: pwsh
@@ -58,12 +55,13 @@ jobs:
 
       - name: Compactar
         shell: pwsh
-        run: Compress-Archive -Path dist\LegendaStudio -DestinationPath dist\LegendaStudio-windows-x64.zip
+        run: |
+          Compress-Archive -Path dist\LegendaStudio -DestinationPath dist\LegendaStudio-windows-x64.zip -Force
 
       - name: Publicar artefatos
         uses: actions/upload-artifact@v4
         with:
           name: LegendaStudio-windows-x64
           path: |
-            legenda-studio/dist/LegendaStudio/
-            legenda-studio/dist/LegendaStudio-windows-x64.zip
+            dist\LegendaStudio\
+            dist\LegendaStudio-windows-x64.zip
