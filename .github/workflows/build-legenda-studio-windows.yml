@@ -37,9 +37,10 @@ jobs:
         run: python -m scripts.e2e_smoke
 
       - name: Montar aplicativo portátil
-        run: |
+        run:
           pyinstaller --noconfirm --clean --onedir --windowed `
             --name LegendaStudio `
+            --collect-data faster_whisper `
             --add-data "assets;assets" `
             --add-data "runtime;runtime" `
             app.py
