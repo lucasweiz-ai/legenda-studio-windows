@@ -1,0 +1,68 @@
+name: Build Windows portátil - Legenda Studio
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "legenda-studio-v*"
+
+defaults:
+  run:
+    working-directory: legenda-studio
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Baixar código
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Instalar dependências
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Incluir FFmpeg e fonte
+        run: python scripts/fetch_runtime.py
+
+      - name: Testes do núcleo
+        run: python -m unittest discover -s tests -v
+
+      - name: Teste ponta a ponta de corte e exportação
+        run: python scripts/e2e_smoke.py
+
+      - name: Montar aplicativo portátil
+        run: |
+          pyinstaller --noconfirm --clean --onedir --windowed `
+            --name LegendaStudio `
+            --add-data "assets;assets" `
+            --add-data "runtime;runtime" `
+            app.py
+          Copy-Item LEIA-ME.md dist\LegendaStudio\LEIA-ME.md
+
+      - name: Teste de inicialização
+        shell: pwsh
+        run: |
+          $process = Start-Process -FilePath "dist\LegendaStudio\LegendaStudio.exe" -PassThru
+          Start-Sleep -Seconds 8
+          if ($process.HasExited -and $process.ExitCode -ne 0) {
+            throw "LegendaStudio.exe encerrou com código $($process.ExitCode)"
+          }
+          Stop-Process -Id $process.Id -Force
+
+      - name: Compactar
+        shell: pwsh
+        run: Compress-Archive -Path dist\LegendaStudio -DestinationPath dist\LegendaStudio-windows-x64.zip
+
+      - name: Publicar artefatos
+        uses: actions/upload-artifact@v4
+        with:
+          name: LegendaStudio-windows-x64
+          path: |
+            legenda-studio/dist/LegendaStudio/
+            legenda-studio/dist/LegendaStudio-windows-x64.zip
