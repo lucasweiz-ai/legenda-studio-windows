@@ -2,9 +2,11 @@
 __pycache__/
 *.py[cod]
 .pytest_cache/
+.cache/
 build/
 dist/
 *.spec
+LegendaStudio-*-test.log
 runtime/
 assets/fonts/*.ttf
 assets/fonts/*.otf

@@ -38,8 +38,7 @@ Para uma montagem manual, execute no Windows:
 
 ```powershell
 python scripts\fetch_runtime.py
-pyinstaller --noconfirm --clean --onedir --windowed --name LegendaStudio `
-  --add-data "assets;assets" app.py
+python scripts\build_windows.py
 ```
 
 ## Testes
