@@ -34,7 +34,10 @@ def startup_test() -> int:
     app.setOrganizationName("Glimo")
     app.setApplicationName(APP_NAME)
     app.setApplicationDisplayName(APP_NAME)
-    app.setWindowIcon(app_icon())
+    icon = app_icon()
+    if icon.isNull():
+        raise RuntimeError("O ícone do Glimo Editor não foi carregado.")
+    app.setWindowIcon(icon)
     window = MainWindow()
     window.show()
     QTimer.singleShot(1000, app.quit)
@@ -61,4 +64,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

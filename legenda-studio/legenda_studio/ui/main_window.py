@@ -57,7 +57,9 @@ def resource_path(relative: str) -> Path:
 
 
 def app_icon() -> QIcon:
-    return QIcon(str(resource_path("assets/glimo-editor.ico")))
+    # PNG is loaded by Qt itself and remains reliable in the packaged build.
+    # The multi-resolution ICO is reserved for the Windows executable resource.
+    return QIcon(str(resource_path("assets/glimo-editor.png")))
 
 
 class PreviewPanel(QFrame):
@@ -831,4 +833,3 @@ def run() -> int:
     window.show()
     QTimer.singleShot(0, window.show_recovery_dialog)
     return app.exec()
-

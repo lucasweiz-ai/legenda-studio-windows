@@ -33,7 +33,7 @@ Usar `Segoe UI` para toda a interface. Títulos e rótulos importantes usam peso
 
 ### Application header
 
-Ícone amarelo e preto, nome “Glimo Editor”, ações de arquivo, ações de processamento e seletor de tema. A ação principal atual recebe maior contraste.
+Ícone de capivara amarela de perfil sobre fundo preto, nome “Glimo Editor”, ações de arquivo, ações de processamento e seletor de tema. A ação principal atual recebe maior contraste.
 
 ### Timeline
 
@@ -54,4 +54,3 @@ Três modos: Automático (Windows), Claro e Escuro. Automático consulta o tema 
 ## Motion
 
 Somente feedback de estado. Evitar animações decorativas; respeitar a configuração de movimento reduzido do sistema.
-

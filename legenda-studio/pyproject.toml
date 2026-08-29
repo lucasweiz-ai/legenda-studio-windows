@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "glimo-editor"
-version = "0.2.0"
+version = "0.2.1"
 description = "Editor local de vídeo com cortes, projetos recuperáveis e legendas"
 requires-python = ">=3.11"
 dependencies = [
@@ -14,4 +14,3 @@ dependencies = [
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-

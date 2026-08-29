@@ -1,11 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" role="img" aria-labelledby="title">
-  <title id="title">Ícone do Glimo Editor</title>
+  <title id="title">Capivara do Glimo Editor</title>
   <rect width="1024" height="1024" fill="#111111"/>
-  <rect x="64" y="64" width="896" height="896" fill="#F7C600"/>
-  <path d="M326 244L760 512 326 780Z" fill="#111111"/>
-  <rect x="511" y="250" width="58" height="524" fill="#F7C600"/>
-  <rect x="180" y="830" width="664" height="48" fill="#111111"/>
-  <rect x="236" y="808" width="30" height="92" fill="#F7C600"/>
-  <rect x="758" y="808" width="30" height="92" fill="#F7C600"/>
+  <path fill="#F7C600" d="M112 558C112 423 211 327 356 311c101-11 151 25 222 8 40-10 79-49 110-72 4-35 23-61 54-61 31 0 49 23 55 49 72 1 132 24 168 64 32 36 39 77 24 120-13 39-38 59-73 65-39 7-73-12-109 5-35 16-43 54-64 91-15 27-43 54-67 79-19 21-22 57-23 93v42c22 6 42 20 49 39 4 12-4 22-17 22h-86c-18 0-31-12-34-30-6-45-15-91-38-119-56 18-116 28-178 28-44 0-84-5-120-15-22 23-45 40-68 54l-4 40c20 4 40 16 48 32 6 13-2 24-17 24h-84c-17 0-29-11-33-27l-14-61c-51-45-79-109-79-193Z"/>
+  <ellipse cx="829" cy="320" rx="17" ry="12" fill="#111111"/>
 </svg>
-
