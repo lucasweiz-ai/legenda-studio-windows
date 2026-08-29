@@ -1,1 +1,2 @@
-"""Testes do núcleo do Legenda Studio."""
+"""Testes do núcleo do Glimo Editor."""
+

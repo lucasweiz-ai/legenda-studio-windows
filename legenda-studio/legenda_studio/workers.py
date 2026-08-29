@@ -10,6 +10,7 @@ from .ass import generate_ass
 from .cuts import remap_captions
 from .export import ExportCancelled, export_video
 from .models import CutRange, WordCaption
+from .silence import SilenceDetectionCancelled, detect_silences
 from .transcription import transcribe_brazilian_portuguese
 
 
@@ -75,7 +76,7 @@ class ExportWorker(QObject):
     def run(self) -> None:
         try:
             remapped = remap_captions(self.captions, self.cuts)
-            with tempfile.TemporaryDirectory(prefix="legenda-studio-") as temporary:
+            with tempfile.TemporaryDirectory(prefix="glimo-editor-") as temporary:
                 ass_path = Path(temporary) / "legendas.ass"
                 ass_path.write_text(generate_ass(remapped), encoding="utf-8")
                 export_video(
@@ -100,3 +101,38 @@ class ExportWorker(QObject):
 
     def cancel(self) -> None:
         self.cancel_event.set()
+
+
+class SilenceWorker(QObject):
+    progress = Signal(int, str)
+    completed = Signal(object)
+    failed = Signal(str)
+    canceled = Signal()
+
+    def __init__(self, source: Path, duration: float) -> None:
+        super().__init__()
+        self.source = source
+        self.duration = duration
+        self.cancel_event = Event()
+
+    @Slot()
+    def run(self) -> None:
+        try:
+            cuts = detect_silences(
+                self.source,
+                self.duration,
+                self.cancel_event,
+                lambda value, message: self.progress.emit(value, message),
+            )
+            if self.cancel_event.is_set():
+                self.canceled.emit()
+            else:
+                self.completed.emit(cuts)
+        except SilenceDetectionCancelled:
+            self.canceled.emit()
+        except Exception as exc:
+            self.failed.emit(str(exc))
+
+    def cancel(self) -> None:
+        self.cancel_event.set()
+

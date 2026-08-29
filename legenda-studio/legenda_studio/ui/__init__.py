@@ -1,1 +1,2 @@
-"""Widgets da interface do Legenda Studio."""
+"""Widgets da interface do Glimo Editor."""
+

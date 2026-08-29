@@ -7,7 +7,7 @@ def self_test() -> int:
     """Valida dependências críticas dentro do pacote portátil."""
     from legenda_studio.media import find_binary
 
-    log_path = Path("LegendaStudio-self-test.log")
+    log_path = Path("GlimoEditor-self-test.log")
     log_path.write_text("Iniciando autoteste.\n", encoding="utf-8")
     find_binary("ffmpeg")
     find_binary("ffprobe")
@@ -28,10 +28,13 @@ def startup_test() -> int:
     from PySide6.QtCore import QTimer
     from PySide6.QtWidgets import QApplication
 
-    from legenda_studio.ui.main_window import MainWindow
+    from legenda_studio.ui.main_window import APP_NAME, MainWindow, app_icon
 
     app = QApplication(sys.argv)
-    app.setApplicationName("Legenda Studio")
+    app.setOrganizationName("Glimo")
+    app.setApplicationName(APP_NAME)
+    app.setApplicationDisplayName(APP_NAME)
+    app.setWindowIcon(app_icon())
     window = MainWindow()
     window.show()
     QTimer.singleShot(1000, app.quit)
@@ -43,13 +46,13 @@ def main() -> int:
         try:
             return self_test()
         except Exception:
-            Path("LegendaStudio-self-test.log").write_text(traceback.format_exc(), encoding="utf-8")
+            Path("GlimoEditor-self-test.log").write_text(traceback.format_exc(), encoding="utf-8")
             return 1
     if "--startup-test" in sys.argv:
         try:
             return startup_test()
         except Exception:
-            Path("LegendaStudio-startup-test.log").write_text(traceback.format_exc(), encoding="utf-8")
+            Path("GlimoEditor-startup-test.log").write_text(traceback.format_exc(), encoding="utf-8")
             return 1
     from legenda_studio.ui.main_window import run
 
@@ -58,3 +61,4 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+

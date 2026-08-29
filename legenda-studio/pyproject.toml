@@ -3,9 +3,9 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "legenda-studio"
-version = "0.1.0"
-description = "Editor local de vídeo com legendas palavra a palavra"
+name = "glimo-editor"
+version = "0.2.0"
+description = "Editor local de vídeo com cortes, projetos recuperáveis e legendas"
 requires-python = ">=3.11"
 dependencies = [
   "PySide6>=6.7,<7",
@@ -14,3 +14,4 @@ dependencies = [
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+
