@@ -1,4 +1,4 @@
-"""Monta e valida a pasta portátil do Legenda Studio no Windows."""
+"""Monta e valida a pasta portátil do Glimo Editor no Windows."""
 
 from __future__ import annotations
 
@@ -9,7 +9,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-DIST_DIR = ROOT / "dist" / "LegendaStudio"
+DIST_DIR = ROOT / "dist" / "GlimoEditor"
 INTERNAL_DIR = DIST_DIR / "_internal"
 
 
@@ -23,7 +23,9 @@ def main() -> None:
         "--onedir",
         "--windowed",
         "--name",
-        "LegendaStudio",
+        "GlimoEditor",
+        "--icon",
+        "assets/glimo-editor.ico",
         "--collect-all",
         "faster_whisper",
         "--add-data",
@@ -42,7 +44,7 @@ def main() -> None:
 
     shutil.copy2(ROOT / "LEIA-ME.md", DIST_DIR / "LEIA-ME.md")
     required = [
-        DIST_DIR / "LegendaStudio.exe",
+        DIST_DIR / "GlimoEditor.exe",
         INTERNAL_DIR / "runtime" / "ffmpeg.exe",
         INTERNAL_DIR / "runtime" / "ffprobe.exe",
         INTERNAL_DIR / "assets" / "fonts" / "Poppins-ExtraBold.ttf",
@@ -55,3 +57,4 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+

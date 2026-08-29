@@ -1,2 +1,4 @@
-# legenda-studio-windows
-Editor local de vídeo para Windows com legendas palavra a palavra
+# Glimo Editor para Windows
+
+Editor local de vídeo com cortes manuais, remoção de silêncios, projetos recuperáveis e legendas.
+

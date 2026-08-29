@@ -1,20 +1,33 @@
-# Legenda Studio
+# Glimo Editor
 
 ## Uso rápido
 
-1. Abra o `LegendaStudio.exe`.
-2. Clique em **Abrir vídeo** e escolha um arquivo.
-3. Clique em **Gerar legenda**. A primeira execução pode baixar o modelo de transcrição.
-4. Revise as palavras e os horários na tabela à direita. Clique em uma palavra para ir até ela.
-5. Para cortar, arraste no timeline, confira a área selecionada e clique em **Excluir trecho**.
-6. Escolha **Exportar MP4** para salvar o resultado em um novo arquivo.
+1. Abra o `GlimoEditor.exe`.
+2. Clique em **Abrir vídeo** ou escolha **Continuar** na lista de vídeos recentes.
+3. Use **Gerar legenda** para transcrever o áudio.
+4. Use **Cortar silêncios** para marcar pausas automaticamente em vermelho.
+5. Para cortar manualmente, arraste na linha do tempo, ajuste as alças amarelas e clique em **Excluir seleção**.
+6. Clique em **Salvar projeto** para criar um arquivo `.glimo` ou use **Exportar MP4** para gerar o vídeo final.
 
-Os atalhos são `Espaço` para reproduzir/pausar, `Ctrl+O` para abrir, `Ctrl+E` para exportar e `Ctrl+Z` para desfazer o último corte.
+As tarefas demoradas mostram uma barra de atividade ou porcentagem. Após três segundos, o aplicativo avisa quando a operação pode levar vários minutos.
 
-O vídeo original permanece intacto. O exportador recusa o mesmo caminho do arquivo de origem e remove arquivos incompletos quando a operação é cancelada ou falha.
+## Temas
 
-## Requisitos
+O tema padrão é **Automático (Windows)**. Também é possível escolher **Claro** ou **Escuro** no topo da janela.
 
-O pacote portátil inclui Python, FFmpeg e a fonte usada nas legendas. Não é necessário instalar Python no computador que executará o `.exe`.
+## Recuperação
 
-Arquivos sem áudio podem ser abertos e exportados normalmente; nesse caso não há transcrição disponível e a interface informa o motivo.
+O Glimo Editor salva automaticamente a sessão. Ao abrir novamente, ele lista os vídeos usados recentemente e permite continuar com os cortes, as legendas e a posição de reprodução anteriores.
+
+## Atalhos
+
+- `Espaço`: reproduzir ou pausar.
+- `Ctrl+O`: abrir vídeo.
+- `Ctrl+Shift+O`: abrir projeto.
+- `Ctrl+S`: salvar projeto.
+- `Ctrl+E`: exportar MP4.
+- `Ctrl+Z`: desfazer o último corte.
+- `Delete`: excluir o trecho selecionado.
+
+O vídeo original permanece intacto. Arquivos incompletos são removidos se uma exportação for cancelada ou falhar.
+

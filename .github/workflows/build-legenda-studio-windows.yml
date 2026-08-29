@@ -1,4 +1,4 @@
-name: Build Windows portátil - Legenda Studio
+name: Build Windows portátil - Glimo Editor
 
 on:
   workflow_dispatch:
@@ -11,7 +11,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: legenda-studio-windows-${{ github.ref }}
+  group: glimo-editor-windows-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -56,43 +56,44 @@ jobs:
 
       - name: Testar integridade do pacote
         run: |
-          Remove-Item "LegendaStudio-self-test.log" -ErrorAction SilentlyContinue
-          $process = Start-Process -FilePath "dist\LegendaStudio\LegendaStudio.exe" -ArgumentList "--self-test" -PassThru -WindowStyle Hidden
+          Remove-Item "GlimoEditor-self-test.log" -ErrorAction SilentlyContinue
+          $process = Start-Process -FilePath "dist\GlimoEditor\GlimoEditor.exe" -ArgumentList "--self-test" -PassThru -WindowStyle Hidden
           if (-not $process.WaitForExit(60000)) {
             Stop-Process -Id $process.Id -Force
             throw "O autoteste do pacote excedeu 60 segundos"
           }
           $process.Refresh()
           if ($process.ExitCode -ne 0) {
-            if (Test-Path "LegendaStudio-self-test.log") {
-              Get-Content "LegendaStudio-self-test.log"
+            if (Test-Path "GlimoEditor-self-test.log") {
+              Get-Content "GlimoEditor-self-test.log"
             }
             throw "O autoteste do pacote falhou com código $($process.ExitCode)"
           }
 
       - name: Testar inicialização da interface
         run: |
-          Remove-Item "LegendaStudio-startup-test.log" -ErrorAction SilentlyContinue
-          $process = Start-Process -FilePath "dist\LegendaStudio\LegendaStudio.exe" -ArgumentList "--startup-test" -PassThru -WindowStyle Hidden
+          Remove-Item "GlimoEditor-startup-test.log" -ErrorAction SilentlyContinue
+          $process = Start-Process -FilePath "dist\GlimoEditor\GlimoEditor.exe" -ArgumentList "--startup-test" -PassThru -WindowStyle Hidden
           if (-not $process.WaitForExit(60000)) {
             Stop-Process -Id $process.Id -Force
             throw "O teste da interface excedeu 60 segundos"
           }
           $process.Refresh()
           if ($process.ExitCode -ne 0) {
-            if (Test-Path "LegendaStudio-startup-test.log") {
-              Get-Content "LegendaStudio-startup-test.log"
+            if (Test-Path "GlimoEditor-startup-test.log") {
+              Get-Content "GlimoEditor-startup-test.log"
             }
             throw "O teste da interface falhou com código $($process.ExitCode)"
           }
 
       - name: Compactar aplicativo
-        run: Compress-Archive -Path dist\LegendaStudio -DestinationPath dist\LegendaStudio-windows-x64.zip -Force
+        run: Compress-Archive -Path dist\GlimoEditor -DestinationPath dist\GlimoEditor-windows-x64.zip -Force
 
       - name: Publicar aplicativo
         uses: actions/upload-artifact@v7
         with:
-          name: LegendaStudio-windows-x64
-          path: legenda-studio/dist/LegendaStudio-windows-x64.zip
+          name: GlimoEditor-windows-x64
+          path: legenda-studio/dist/GlimoEditor-windows-x64.zip
           if-no-files-found: error
           compression-level: 0
+
